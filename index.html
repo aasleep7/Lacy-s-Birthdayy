@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 17th Birthday Lacy ❤️</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #ffd1dc, #ff9a9e 40%, #fad0c4 70%, #ffe6eb);
+      color: #2b2b2b;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Floating background hearts */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ff5a7a;
+      transform: rotate(45deg);
+      opacity: 0.7;
+      animation: floatUp linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ff5a7a;
+      border-radius: 50%;
+    }
+    .heart::before { left: -7px; }
+    .heart::after { top: -7px; }
+    @keyframes floatUp {
+      from { transform: translateY(100vh) rotate(45deg); }
+      to { transform: translateY(-120px) rotate(45deg); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.94);
+      max-width: 1000px;
+      width: 92%;
+      border-radius: 28px;
+      padding: 2.6rem;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.18);
+      animation: fadeIn 1.1s ease-out;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4.8vw, 3.4rem);
+      margin-bottom: 0.35rem;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      margin-bottom: 2.1rem;
+    }
+
+    /* Music button */
+    .music-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #ff6f91;
+      border: none;
+      color: #fff;
+      padding: 0.6rem 0.95rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .music-btn:hover { background: #ff4f7b; }
+
+    /* Heart click area */
+    #clickHeart {
+      width: 120px;
+      height: 120px;
+      margin: 20px auto;
+      cursor: pointer;
+      position: relative;
+    }
+    .heart-shape {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: red;
+      transform: rotate(-45deg);
+    }
+    .heart-shape::before,
+    .heart-shape::after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart-shape::before { top: -60px; left: 0; }
+    .heart-shape::after { top:0; left:60px; }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      border-radius: 50%;
+      animation: fall 1s ease-out forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity:1; }
+      100% { transform: translateY(300px) rotate(360deg); opacity:0; }
+    }
+
+    .message {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-top: 1rem;
+    }
+    .message p { margin-bottom: 1.1rem; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+    @media (max-width: 480px) {
+      .gallery { grid-template-columns: 1fr; }
+      .gallery img { height: 230px; }
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 2.2rem;
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    /* Hidden message */
+    .secret { margin-top: 1.6rem; }
+    .reveal-btn {
+      background: transparent;
+      border: 2px dashed #ff6f91;
+      color: #ff6f91;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .secret-text { display: none; margin-top: 0.9rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card">
+    <h1>Happy 17th Birthday Lacy 🎂</h1>
+    <div class="subtitle">A little place for my love for you</div>
+
+    <!-- Music button and audio -->
+    <audio id="bgMusic" loop>
+      <source src="put-your-head-on-my-shoulders.mp3" type="audio/mpeg" />
+    </audio>
+    <button class="music-btn" onclick="toggleMusic()">🎶 Play Music</button>
+
+    <!-- Clickable heart -->
+    <div id="clickHeart">
+      <div class="heart-shape"></div>
+    </div>
+
+    <!-- Romantic message -->
+    <div class="message">
+      <p>
+        Happy 17th birthday my love. I hope you enjoy this birthday and many more to come, I wish everyday you wake up is a special day.
+        I love you so much, sometimes I sit in silence just thinking about it because I don't know how to express myself.
+        I hope you continue loving me and I'll continue loving you.
+        I want you to remember how much I love you every time we talk.
+        I want us to grow old together until death separates us.
+      </p>
+
+      <div class="secret">
+        <button class="reveal-btn" onclick="reveal()">Tap for a little secret 💗</button>
+        <div class="secret-text" id="secretText">"31/03/2024" — Almost 2 years together</div>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery">
+      <img src="sanrio-birthday.webp" alt="Cute birthday art" />
+      <img src="messages-collage.webp" alt="Messages collage" />
+      <img src="sanrio-birthday.webp" alt="Cute birthday art" />
+      <img src="messages-collage.webp" alt="Messages collage" />
+    </div>
+
+    <div class="footer">Made with all my love — always yours.</div>
+  </div>
+
+  <script>
+    // Floating hearts background
+    const hearts = document.getElementById('hearts');
+    const HEARTS_COUNT = 28;
+    for (let i = 0; i < HEARTS_COUNT; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = 6 + Math.random() * 6 + 's';
+      h.style.animationDelay = Math.random() * 6 + 's';
+      h.style.opacity = 0.4 + Math.random() * 0.6;
+      hearts.appendChild(h);
+    }
+
+    // Music toggle
+    const music = document.getElementById('bgMusic');
+    const btn = document.querySelector('.music-btn');
+    let playing = false;
+    function toggleMusic() {
+      if (!playing) {
+        music.play();
+        btn.textContent = '⏸ Pause Music';
+      } else {
+        music.pause();
+        btn.textContent = '🎶 Play Music';
+      }
+      playing = !playing;
+    }
+
+    // Secret reveal
+    function reveal() {
+      const s = document.getElementById('secretText');
+      s.style.display = 'block';
+    }
+
+    // Click heart animation + confetti
+    const clickHeart = document.getElementById('clickHeart');
+    clickHeart.addEventListener('click', () => {
+      clickHeart.style.transform = 'scale(1.2)';
+      setTimeout(() => { clickHeart.style.transform = 'scale(1)'; }, 300);
+
+      // Confetti
+      for (let i = 0; i < 25; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * clickHeart.offsetWidth + 'px';
+        c.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+        clickHeart.appendChild(c);
+        setTimeout(() => { c.remove(); }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
