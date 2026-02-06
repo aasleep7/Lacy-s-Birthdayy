@@ -1,0 +1,30 @@
+/* Heart click area */
+#clickHeart {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Heart shape */
+.heart-shape {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: red;
+  transform: rotate(-45deg);
+  border-radius: 0;
+  transition: transform 0.2s ease;
+}
+.heart-shape::before,
+.heart-shape::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: red;
+  border-radius: 50%;
+}
+.heart-shape::before { top: -50%; left: 0; }
+.heart-shape::after { left: 50%; top: 0; }
