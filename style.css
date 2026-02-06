@@ -1,0 +1,28 @@
+body {
+  background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding-top: 50px;
+}
+
+#heart {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: relative;
+  margin: 50px auto;
+  transform: rotate(-45deg);
+}
+
+#heart::before,
+#heart::after {
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+}
+
+#heart::before { top: -50px; left: 0; }
+#heart::after { left: 50px; top: 0; }
